@@ -13,16 +13,15 @@
 _start:
     # setup default trap vector
     la      t0, trap_vector
-    csrw    mtvec, t0
+    csrw    stvec, t0
 
     # set up stack pointer based on hartid
-    csrr    t0, mhartid
+    addi    t0, a0, 0
     slli    t0, t0, STACK_SHIFT
     la      sp, stacks + STACK_SIZE
     add     sp, sp, t0
 
     # park all harts excpet hart 0
-    csrr    a0, mhartid
     bnez    a0, park
 
     # jump to libfemto_start_main
@@ -56,8 +55,8 @@ trap_vector:
 
     # Invoke the handler.
     mv      a0, sp
-    csrr    a1, mcause
-    csrr    a2, mepc
+    csrr    a1, scause
+    csrr    a2, sepc
     jal     trap_handler
 
     # Restore registers.
@@ -80,7 +79,7 @@ trap_vector:
     addi sp, sp, CONTEXT_SIZE
 
     # Return
-    mret
+    sret
 
     .bss
     .align 4

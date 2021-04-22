@@ -24,11 +24,11 @@ libs               = libfemto
 configs            = rv32imac rv64imac
 
 CC_rv32imac        = $(CROSS_COMPILE)gcc
-CFLAGS_rv32imac    = -Os -march=rv32imac -mabi=ilp32 -Ienv/common/rv32
+CFLAGS_rv32imac    = -Os -g -march=rv32imac -mabi=ilp32 -Ienv/common/rv32
 LDFLAGS_rv32imac   =
 
 CC_rv64imac        = $(CROSS_COMPILE)gcc
-CFLAGS_rv64imac    = -Os -march=rv64imac -mabi=lp64  -Ienv/common/rv64
+CFLAGS_rv64imac    = -Os -g -march=rv64imac -mabi=lp64  -Ienv/common/rv64
 LDFLAGS_rv64imac   =
 
 targets            = rv32imac:default \
